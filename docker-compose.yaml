@@ -3,7 +3,7 @@ name: codeclarity
 services:
   rabbitmq:
     restart: always
-    image: rabbitmq:3.13.7-management-alpine
+    image: rabbitmq:4.0.2-management-alpine
     env_file:
       - .env.amqp
     healthcheck:
@@ -151,141 +151,6 @@ services:
           cpus: '0.25'
           memory: 250M
 
-  service-downloader:
-    image: ceherzog/service-downloader
-    restart: always
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-      db:
-        condition: service_started
-      pg_bouncer:
-        condition: service_started
-      adminer:
-        condition: service_started
-    env_file:
-      - .env.amqp
-      - .env.codeclarity
-      - .env.database
-    volumes:
-      - projects:/private
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 500M
-        reservations:
-          cpus: '0.25'
-          memory: 250M
-
-  plugin-js-sbom:
-    image: ceherzog/plugin-js-sbom
-    restart: always
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-      db:
-        condition: service_started
-      pg_bouncer:
-        condition: service_started
-      adminer:
-        condition: service_started
-    env_file:
-      - .env.amqp
-      - .env.codeclarity
-      - .env.database
-    volumes:
-      - projects:/private
-    deploy:
-      mode: replicated
-      replicas: 6
-      resources:
-        limits:
-          cpus: '1'
-          memory: 500M
-        reservations:
-          cpus: '0.5'
-          memory: 250M
-
-  plugin-js-license:
-    image: ceherzog/plugin-js-license
-    restart: always
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-      db:
-        condition: service_started
-      pg_bouncer:
-        condition: service_started
-      adminer:
-        condition: service_started
-    env_file:
-      - .env.amqp
-      - .env.codeclarity
-      - .env.database
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 500M
-        reservations:
-          cpus: '0.5'
-          memory: 250M
-
-  plugin-js-patching:
-    image: ceherzog/plugin-js-patching
-    restart: always
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-      db:
-        condition: service_started
-      pg_bouncer:
-        condition: service_started
-      adminer:
-        condition: service_started
-    env_file:
-      - .env.amqp
-      - .env.codeclarity
-      - .env.database
-    volumes:
-      - projects:/private
-    deploy:
-      resources:
-        limits:
-          cpus: '4'
-          memory: 4G
-        reservations:
-          cpus: '2'
-          memory: 2G
-
-  plugin-js-vuln-finder:
-    image: ceherzog/plugin-js-vuln-finder
-    restart: always
-    depends_on:
-      rabbitmq:
-        condition: service_healthy
-      db:
-        condition: service_started
-      pg_bouncer:
-        condition: service_started
-      adminer:
-        condition: service_started
-    env_file:
-      - .env.amqp
-      - .env.codeclarity
-      - .env.database
-    volumes:
-      - projects:/private
-    deploy:
-      resources:
-        limits:
-          cpus: '4'
-          memory: 4G
-        reservations:
-          cpus: '2'
-          memory: 2G
-
 volumes:
   caddy_data:
   caddy_config:
@@ -293,5 +158,3 @@ volumes:
   results_db_data_container:
   results_db_apps_data_container:
   db_data_container:
-
-  projects:
