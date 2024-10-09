@@ -21,7 +21,7 @@ services:
           memory: 500M
 
   db:
-    image: postgres:16.4-alpine
+    image: postgres:17.0-alpine
     restart: always
     # set shared memory limit when using docker-compose
     shm_size: 128mb
@@ -130,8 +130,10 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
+      - ./config/Caddyfile:/etc/caddy/Caddyfile:ro
       # Uncomment the following line to use your own certificates
       # - ./certs:/etc/caddy/certs:ro
+    command: [ "caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile", "--watch" ]
     deploy:
       resources:
         limits:
