@@ -37,3 +37,8 @@
 	log
 	reverse_proxy results_db:8529
 }
+
+{$SERVER_NAME}:8080 {
+	log
+	reverse_proxy adminer:8080
+}

@@ -1,5 +1,5 @@
 name: codeclarity
-  
+
 services:
   rabbitmq:
     restart: always
@@ -14,12 +14,12 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1'
+          cpus: "1"
           memory: 1G
         reservations:
-          cpus: '1'
+          cpus: "1"
           memory: 500M
-  
+
   db:
     image: postgres:16.4-alpine
     restart: always
@@ -53,9 +53,20 @@ services:
   adminer:
     image: adminer
     restart: always
-    ports:
-      - 8080:8080
-    command: [ "php", "-d", "memory_limit=-1", "-d", "post_max_size=500M", "-d", "upload_max_filesize=500M", "-S", "0.0.0.0:8080", "-t", "/var/www/html" ]
+    command:
+      [
+        "php",
+        "-d",
+        "memory_limit=-1",
+        "-d",
+        "post_max_size=500M",
+        "-d",
+        "upload_max_filesize=500M",
+        "-S",
+        "0.0.0.0:8080",
+        "-t",
+        "/var/www/html",
+      ]
 
   api:
     image: ceherzog/api
@@ -80,10 +91,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: "2"
           memory: 1G
         reservations:
-          cpus: '1'
+          cpus: "1"
           memory: 500M
 
   frontend:
@@ -112,6 +123,10 @@ services:
       - target: 3000
         published: 3000
         protocol: tcp
+      # ADMINER
+      - target: 8080
+        publoshed: 8080
+        protocol: tcp
     volumes:
       - caddy_data:/data
       - caddy_config:/config
@@ -120,10 +135,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: "2"
           memory: 2G
         reservations:
-          cpus: '1'
+          cpus: "1"
           memory: 500M
 
   service-dispatcher:
@@ -145,10 +160,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: "0.5"
           memory: 500M
         reservations:
-          cpus: '0.25'
+          cpus: "0.25"
           memory: 250M
 
 volumes:
