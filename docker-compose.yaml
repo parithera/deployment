@@ -168,6 +168,25 @@ services:
           cpus: "0.25"
           memory: 250M
 
+  plugin-r:
+    image: ceherzog/plugin-r
+    restart: always
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started
+      pg_bouncer:
+        condition: service_started
+      adminer:
+        condition: service_started
+    volumes:
+      - projects:/private
+    env_file:
+      - .env.codeclarity
+      - .env.database
+      - .env.amqp
+
 volumes:
   caddy_data:
   caddy_config:
@@ -175,3 +194,5 @@ volumes:
   results_db_data_container:
   results_db_apps_data_container:
   db_data_container:
+
+  projects:
