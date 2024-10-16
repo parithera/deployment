@@ -1,4 +1,4 @@
-name: codeclarity
+name: parithera
 
 services:
   rabbitmq:
@@ -88,6 +88,7 @@ services:
     volumes:
       - ./jwt:/home/codeclarity/app/jwt
       - .env.api:/home/codeclarity/app/env/.env.prod
+      - projects:/private
     deploy:
       resources:
         limits:
@@ -182,6 +183,7 @@ services:
         condition: service_started
     volumes:
       - projects:/private
+      - ./r_scripts:/home/codeclarity/r/r_scripts:ro
     env_file:
       - .env.codeclarity
       - .env.database
