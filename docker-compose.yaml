@@ -88,7 +88,8 @@ services:
     volumes:
       - ./jwt:/home/codeclarity/app/jwt
       - .env.api:/home/codeclarity/app/env/.env.prod
-      - projects:/private
+      # - projects:/private
+      - ../private:/private
     deploy:
       resources:
         limits:
@@ -182,12 +183,153 @@ services:
       adminer:
         condition: service_started
     volumes:
-      - projects:/private
+      # - projects:/private
+      - ../private:/private
       - ./r_scripts:/home/codeclarity/r/r_scripts:ro
     env_file:
       - .env.codeclarity
       - .env.database
       - .env.amqp
+
+  plugin-fastp:
+    image: parithera/plugin-fastp
+    restart: always
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started
+      pg_bouncer:
+        condition: service_started
+      adminer:
+        condition: service_started
+    volumes:
+      # - projects:/private
+      - ../private:/private
+    env_file:
+      - .env.codeclarity
+      - .env.database
+      - .env.amqp
+
+  plugin-fastqc:
+    image: parithera/plugin-fastqc
+    restart: always
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started
+      pg_bouncer:
+        condition: service_started
+      adminer:
+        condition: service_started
+    volumes:
+      # - projects:/private
+      - ../private:/private
+    env_file:
+      - .env.codeclarity
+      - .env.database
+      - .env.amqp
+
+  plugin-multiqc:
+    image: parithera/plugin-multiqc
+    restart: always
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started
+      pg_bouncer:
+        condition: service_started
+      adminer:
+        condition: service_started
+    volumes:
+      # - projects:/private
+      - ../private:/private
+    env_file:
+      - .env.codeclarity
+      - .env.database
+      - .env.amqp
+
+  plugin-python:
+    image: parithera/plugin-python
+    restart: always
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started
+      pg_bouncer:
+        condition: service_started
+      adminer:
+        condition: service_started
+    volumes:
+      # - projects:/private
+      - ../private:/private
+    env_file:
+      - .env.codeclarity
+      - .env.database
+      - .env.amqp
+
+  plugin-scanpy:
+    image: parithera/plugin-scanpy
+    restart: always
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started
+      pg_bouncer:
+        condition: service_started
+      adminer:
+        condition: service_started
+    volumes:
+      # - projects:/private
+      - ../private:/private
+    env_file:
+      - .env.codeclarity
+      - .env.database
+      - .env.amqp
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: 8G
+        reservations:
+          cpus: "2"
+          memory: 6G
+
+  plugin-star:
+    image: parithera/plugin-star
+    restart: always
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_started
+      pg_bouncer:
+        condition: service_started
+      adminer:
+        condition: service_started
+    volumes:
+      # - projects:/private
+      - ../private:/private
+      - ../backend/plugins/star/.cloud/docker/data/genes:/genes
+      - ../backend/plugins/star/.cloud/docker/data/whitelists:/whitelists
+    env_file:
+      - .env.codeclarity
+      - .env.database
+      - .env.amqp
+    environment:
+      - GOMAXPROCS=12
+    deploy:
+      resources:
+        limits:
+          cpus: "12"
+          memory: 40G
+        reservations:
+          cpus: "12"
+          memory: 35G
 
 volumes:
   caddy_data:
