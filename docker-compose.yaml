@@ -69,7 +69,7 @@ services:
       ]
 
   api:
-    image: ceherzog/api
+    image: codeclarityce/api
     env_file:
       - .env.api
       - .env.mail
@@ -100,7 +100,7 @@ services:
           memory: 500M
 
   frontend:
-    image: ceherzog/frontend
+    image: parithera/frontend
     env_file:
       - .env.frontend
     restart: always
@@ -146,7 +146,7 @@ services:
           memory: 500M
 
   service-dispatcher:
-    image: ceherzog/service-dispatcher
+    image: codeclarityce/service-dispatcher
     restart: always
     depends_on:
       rabbitmq:
