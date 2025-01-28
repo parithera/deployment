@@ -3,7 +3,7 @@ name: parithera
 services:
   rabbitmq:
     restart: always
-    image: rabbitmq:4.0.2-management-alpine
+    image: rabbitmq:4.0.5-management-alpine
     env_file:
       - .env.amqp
     healthcheck:
@@ -21,7 +21,7 @@ services:
           memory: 500M
 
   db:
-    image: postgres:17.0-alpine
+    image: postgres:17.2-alpine
     restart: always
     # set shared memory limit when using docker-compose
     shm_size: 128mb
