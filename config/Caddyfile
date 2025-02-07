@@ -13,6 +13,7 @@
 
 	rewrite /results* /
 	rewrite /projects* /
+	rewrite /samples* /
 	rewrite /analyses* /
 	rewrite /login* /
 	rewrite /help* /
