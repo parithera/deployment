@@ -88,8 +88,8 @@ services:
     volumes:
       - ./jwt:/home/codeclarity/app/jwt
       - .env.api:/home/codeclarity/app/env/.env.prod
-      # - projects:/private
       - ../private:/private
+      - ../scanpy_scripts:/scanpy_scripts
     deploy:
       resources:
         limits:
@@ -204,7 +204,6 @@ services:
       adminer:
         condition: service_started
     volumes:
-      # - projects:/private
       - ../private:/private
     env_file:
       - .env.codeclarity
@@ -224,7 +223,6 @@ services:
       adminer:
         condition: service_started
     volumes:
-      # - projects:/private
       - ../private:/private
     env_file:
       - .env.codeclarity
@@ -244,7 +242,6 @@ services:
       adminer:
         condition: service_started
     volumes:
-      # - projects:/private
       - ../private:/private
     env_file:
       - .env.codeclarity
@@ -264,8 +261,8 @@ services:
       adminer:
         condition: service_started
     volumes:
-      # - projects:/private
       - ../private:/private
+      - ../scanpy_scripts:/scanpy_scripts
     env_file:
       - .env.codeclarity
       - .env.database
@@ -284,7 +281,6 @@ services:
       adminer:
         condition: service_started
     volumes:
-      # - projects:/private
       - ../private:/private
     env_file:
       - .env.codeclarity
@@ -312,7 +308,6 @@ services:
       adminer:
         condition: service_started
     volumes:
-      # - projects:/private
       - ../private:/private
       - ../backend/plugins/star/.cloud/docker/data/genes:/genes
       - ../backend/plugins/star/.cloud/docker/data/whitelists:/whitelists
