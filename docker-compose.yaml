@@ -89,7 +89,7 @@ services:
       - ./jwt:/home/codeclarity/app/jwt
       - .env.api:/home/codeclarity/app/env/.env.prod
       - ../private:/private
-      - ../scanpy_scripts:/scanpy_scripts
+      - ../scripts:/scripts
     deploy:
       resources:
         limits:
@@ -262,7 +262,7 @@ services:
         condition: service_started
     volumes:
       - ../private:/private
-      - ../scanpy_scripts:/scanpy_scripts
+      - ../scripts:/scripts
     env_file:
       - .env.codeclarity
       - .env.database
