@@ -30,7 +30,7 @@ pull: ## Pull images from docker hub
 	@$(DOCKER_COMP) pull
 
 save: ## Save images on disk
-	@sh image-save.sh
+	@sh scripts/image-save.sh
 
 load: ## Load saved images
 	@docker load < services.img
