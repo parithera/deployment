@@ -313,10 +313,9 @@ services:
       - ../backend/plugins/star/.cloud/docker/data/whitelists:/whitelists
     env_file:
       - .env.codeclarity
+      - .env.parithera
       - .env.database
       - .env.amqp
-    environment:
-      - GOMAXPROCS=12
     deploy:
       resources:
         limits:
