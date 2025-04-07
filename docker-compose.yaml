@@ -3,7 +3,7 @@ name: parithera
 services:
   rabbitmq:
     restart: always
-    image: rabbitmq:4.0.7-management-alpine
+    image: rabbitmq:4.0.8-management-alpine
     env_file:
       - .env.amqp
     healthcheck:
@@ -51,7 +51,7 @@ services:
       - 6432:6432
 
   adminer:
-    image: adminer:5.0.6
+    image: adminer:5.1.0
     restart: always
     command:
       [
@@ -69,7 +69,7 @@ services:
       ]
 
   api:
-    image: codeclarityce/api
+    image: parithera/api
     env_file:
       - .env.api
       - .env.mail
