@@ -1,4 +1,4 @@
-dump
+dump/*.list
 jwt
 certs
 .DS_Store
